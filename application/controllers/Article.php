@@ -195,9 +195,59 @@ class Article extends CI_Controller {
 
     }
 
+    public function get()
+    {
+        if(!$this->_is_admin()) {
+            echo json_encode(
+                array(
+                    'error_code' => 2001,
+                    'error_msg' => "您无权访问该模块"
+                )
+            );
+
+            return FALSE;
+        }
+
+        $id = $this->input->get('id', true);
+        if (is_numeric($id) && $id) {
+
+            $result = $this->article_model->getArticle($id);
+
+            if (!$result) {
+                echo json_encode(
+                    array(
+                        'error_code' => 2001,
+                        'error_msg' => "传入参数的ID数据不存在！"
+                    )
+                );
+                return FALSE;
+            }
+
+            echo json_encode(
+                array(
+                    'error_code' => 1001,
+                    'error_msg' => "查询成功！",
+                    'data' => $result
+                )
+            );
+            return TRUE;
+
+        } else {
+            echo json_encode(
+                array(
+                    'error_code' => 2001,
+                    'error_msg' => "传入的参数ID不合法！"
+                )
+            );
+            return FALSE;
+        }
+
+    }
+
+
     public function getList()
     {
-
+        
 
     }
 
