@@ -247,7 +247,35 @@ class Article extends CI_Controller {
 
     public function getList()
     {
-        
+        $pageNo = $this->input->get('pageNo', true);
+        $pageSize = $this->input->get('pageSize', true);
+        $cate = $this->input->get('cate', true);
+        $status = $this->input->get('status', true);
+
+        $result = $this->article_model->getList($pageNo, $pageSize, $cate, $status);
+
+
+        if ($result) {
+            echo json_encode(
+                array(
+                    'error_code' => 1001,
+                    'error_msg' => "数据读取成功",
+                    'data' => $result
+                )
+            );
+
+            return TRUE;
+        } else {
+            echo json_encode(
+                array(
+                    'error_code' => 2001,
+                    'error_msg' => '获取数据失败，请检查参数！',
+                )
+            );
+
+            return FALSE;
+        }
+
 
     }
 
