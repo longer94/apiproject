@@ -268,7 +268,7 @@ class Article extends CI_Controller {
         } else {
             echo json_encode(
                 array(
-                    'error_code' => 2001,
+                    'error_code' => $this->article_model->error_code,
                     'error_msg' => '获取数据失败，请检查参数！',
                 )
             );

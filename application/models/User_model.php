@@ -13,6 +13,12 @@ class User_model extends CI_Model {
         return $query->row_array();
     }
 
+    public function getUserById($uid)
+    {
+        $query = $this->db->get_where('user', array('id' => $uid));
+        return $query->row_array();
+    }
+
     public function register($name, $pwd)
     {
         $data = array(
